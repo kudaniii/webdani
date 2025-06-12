@@ -1,6 +1,13 @@
 <title>Portofolio Pribadi</title>
 <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
 <style>
+    html {
+        scroll-behavior: smooth;
+        box-sizing: border-box;
+    }
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
     body {
         margin: 0;
         padding: 0;
@@ -146,7 +153,7 @@
         font-size: 1rem;
         margin-bottom: 0;
     }
-    .about-section, .services-section, .contact-section {
+    .about-section, .services-section, .contact-section, .beranda-section {
         display: none;
         animation: fadeIn 0.7s;
     }
@@ -365,21 +372,61 @@
         min-width: 22px;
         text-align: right;
     }
+    #music-popup .music-yt .music-playpause-controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 8px;
+        justify-content: center;
+        width: 100%;
+    }
+    #music-popup .music-yt .music-playpause-controls button {
+        background: linear-gradient(90deg, #4e54c8, #8f94fb);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        font-size: 1.3rem;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(78,84,200,0.10);
+        transition: background 0.3s, transform 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        outline: none;
+    }
+    #music-popup .music-yt .music-playpause-controls button:hover, #music-popup .music-yt .music-playpause-controls button:focus {
+        background: linear-gradient(90deg, #8f94fb, #4e54c8);
+        transform: scale(1.08);
+    }
     #music-popup .music-close {
         position: absolute;
-        top: 6px;
-        right: 10px;
-        background: none;
-        border: none;
+        top: -18px;
+        right: -18px;
+        background: #fff;
+        border: 3px solid #4e54c8;
         color: #4e54c8;
-        font-size: 1.1rem;
+        font-size: 2.2rem;
         cursor: pointer;
         font-weight: bold;
-        opacity: 0.7;
-        transition: opacity 0.2s;
+        opacity: 1;
+        transition: opacity 0.2s, background 0.2s, color 0.2s, border 0.2s;
         z-index: 2;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(78,84,200,0.18);
     }
-    #music-popup .music-close:hover {
+    #music-popup .music-close:hover, #music-popup .music-close:focus {
+        background: #4e54c8;
+        color: #fff;
+        border: 3px solid #fff;
         opacity: 1;
     }
     #music-popup .music-link {
@@ -412,8 +459,9 @@
         height: 16px;
         width: 16px;
     }
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
         .main-content {
+            max-width: 98vw;
             padding: 30px 10px 40px 10px;
         }
         .cards {
@@ -430,7 +478,7 @@
             right: 0;
         }
     }
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
         header h1 {
             font-size: 2rem;
         }
@@ -458,10 +506,67 @@
         #music-popup .music-yt iframe {
             height: 110px;
         }
+        ul {
+            flex-direction: column;
+            width: 100%;
+            border-radius: 0;
+            box-shadow: none;
+            background: none;
+        }
+        li {
+            margin: 0 0 10px 0;
+        }
+        nav ul {
+            width: 100%;
+        }
+    }
+    @media (max-width: 500px) {
+        header img {
+            width: 80px;
+            height: 80px;
+        }
+        .about-photo {
+            width: 90px;
+            height: 90px;
+        }
+        .main-content {
+            padding: 10px 2vw 20px 2vw;
+        }
+        .card {
+            padding: 12px 4vw;
+        }
+        #music-popup .music-close {
+            width: 38px;
+            height: 38px;
+            font-size: 1.5rem;
+            top: -12px;
+            right: -12px;
+        }
     }
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(30px);}
         to { opacity: 1; transform: translateY(0);}
+    }
+    .intro-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
+        animation: fadeIn 1s;
+    }
+    .intro-section h2 {
+        font-size: 2.2rem;
+        color: #4e54c8;
+        margin-bottom: 18px;
+        font-weight: 700;
+    }
+    .intro-section p {
+        font-size: 1.2rem;
+        color: #444;
+        line-height: 1.7;
+        margin-bottom: 0;
+        max-width: 700px;
     }
     footer {
         margin-top: 60px;
@@ -470,9 +575,6 @@
         font-size: 1rem;
         opacity: 0.7;
         padding-bottom: 24px;
-    }
-    html {
-        scroll-behavior: smooth;
     }
 </style>
 </head>
@@ -483,7 +585,7 @@
     <p>Selamat datang di portofolio pribadi saya. Temukan karya, layanan, dan cara menghubungi saya di sini.</p>
     <nav>
         <ul>
-            <li><button id="btn-beranda" class="active" data-scroll="#beranda-section">Beranda</button></li>
+            <li><button id="btn-beranda" data-scroll="#beranda-section">Beranda</button></li>
             <li><button id="btn-tentang" data-scroll="#tentang-section">Tentang Saya</button></li>
             <li><button id="btn-layanan" data-scroll="#layanan-section">Layanan</button></li>
             <li><button id="btn-kontak" data-scroll="#kontak-section">Hubungi Kami</button></li>
@@ -491,7 +593,13 @@
     </nav>
 </header>
 <div class="main-content">
-    <section id="beranda-section" class="active-section">
+    <section id="intro-section" class="intro-section active-section">
+        <h2>Selamat Datang di Dunia HTML</h2>
+        <p>
+            HTML (HyperText Markup Language) adalah fondasi utama dari setiap halaman web di internet. Dengan HTML, Anda dapat membuat struktur, menampilkan teks, gambar, tautan, dan berbagai elemen lain yang membentuk sebuah website. HTML telah berkembang sejak tahun 1991 dan kini menjadi standar global untuk membangun web yang interaktif dan informatif. Mari jelajahi lebih lanjut tentang dunia web dan kreativitas digital!
+        </p>
+    </section>
+    <section id="beranda-section" class="beranda-section">
         <h2>Selamat Datang di Portofolio Saya</h2>
         <p>Saya adalah seorang web developer & desainer kreatif yang berfokus pada pembuatan website modern, responsif, dan menarik. Temukan karya dan layanan saya di bawah ini!</p>
         <div class="cards">
@@ -573,16 +681,20 @@
 <!-- Music Player Popup -->
 <div id="music-popup" aria-modal="true" role="dialog">
     <button class="music-close" id="music-popup-close" aria-label="Tutup Pemutar Musik">&times;</button>
-    <div class="music-title" id="music-title">Janji -  Heroes Tonight</div>
-    <div class="music-desc">Nikmati lagu <b>Janji</b> oleh <a href="https://www.youtube.com/channel/UCJrOtniJ0-NWz37R30urifQ" target="_blank" rel="noopener" style="color:#4e54c8;text-decoration:underline;">Heroes Tonigh</a> untuk menemani aktivitasmu!</div>
+    <div class="music-title" id="music-title">Janji - Heroes Tonight</div>
+    <div class="music-desc">Nikmati lagu <b>Janji</b> oleh <a href="https://www.youtube.com/channel/UCJrOtniJ0-NWz37R30urifQ" target="_blank" rel="noopener" style="color:#4e54c8;text-decoration:underline;">Heroes Tonight</a> untuk menemani aktivitasmu!</div>
     <div class="music-yt" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;">
         <div id="yt-player-container" style="width:100%;">
             <!-- YouTube iframe will be injected here -->
         </div>
         <div class="audio-controls" style="width:95%;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;">
             <label for="music-volume" style="font-size:0.95rem;color:#4e54c8;font-weight:600;">Volume</label>
-            <input type="range" id="music-volume" min="0" max="100" value="40" style="accent-color:#4e54c8;">
-            <span id="music-volume-value" style="font-size:0.95rem;color:#4e54c8;">40</span>
+            <input type="range" id="music-volume" min="0" max="100" value="30" style="accent-color:#4e54c8;">
+            <span id="music-volume-value" style="font-size:0.95rem;color:#4e54c8;">30</span>
+        </div>
+        <div class="music-playpause-controls">
+            <button id="music-play-btn" title="Putar Musik" aria-label="Putar Musik">&#9654;</button>
+            <button id="music-pause-btn" title="Pause Musik" aria-label="Pause Musik">&#10073;&#10073;</button>
         </div>
         <div style="font-size:0.9rem;color:#888;text-align:center;">* Atur volume video YouTube dengan slider di atas agar tidak terlalu keras.</div>
     </div>
@@ -603,10 +715,21 @@
             document.getElementById('layanan-section'),
             document.getElementById('kontak-section')
         ];
+        const introSection = document.getElementById('intro-section');
+
+        // Hide all sections except intro at start
+        sections.forEach(sec => sec.classList.remove('active-section'));
+        introSection.classList.add('active-section');
+        buttons.forEach(btn => btn.classList.remove('active'));
 
         function showSection(idx) {
-            sections.forEach((sec, i) => sec.classList.toggle('active-section', i === idx));
-            buttons.forEach((btn, i) => btn.classList.toggle('active', i === idx));
+            // Hide all
+            introSection.classList.remove('active-section');
+            sections.forEach(sec => sec.classList.remove('active-section'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            // Show selected
+            sections[idx].classList.add('active-section');
+            buttons[idx].classList.add('active');
         }
 
         function smoothScrollTo(targetY, duration = 700) {
@@ -726,7 +849,7 @@
         // YouTube Iframe API & Volume Control
         let ytPlayer;
         let ytReady = false;
-        let ytVolume = 40;
+        let ytVolume = 30;
         const ytPlayerContainer = document.getElementById('yt-player-container');
         const ytVideoId = "3nQNiWdeH2Q";
         function createYTPlayer() {
@@ -736,7 +859,7 @@
                 width: '100%',
                 videoId: ytVideoId,
                 playerVars: {
-                    'autoplay': 0,
+                    'autoplay': 1,
                     'controls': 1,
                     'rel': 0,
                     'modestbranding': 1
@@ -745,6 +868,7 @@
                     'onReady': function(event) {
                         ytReady = true;
                         event.target.setVolume(ytVolume);
+                        event.target.playVideo();
                     }
                 }
             });
@@ -775,24 +899,95 @@
             }
         });
 
+        // Play/Pause controls
+        const playBtn = document.getElementById('music-play-btn');
+        const pauseBtn = document.getElementById('music-pause-btn');
+        playBtn.addEventListener('click', function() {
+            if (ytReady && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+                ytPlayer.playVideo();
+            }
+        });
+        pauseBtn.addEventListener('click', function() {
+            if (ytReady && ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+                ytPlayer.pauseVideo();
+            }
+        });
+
         // Recreate player on popup open (to ensure volume works after close/open)
         function ensureYTPlayer() {
             if (!ytPlayer || !ytReady) {
                 if (window.YT && window.YT.Player) {
                     createYTPlayer();
                 }
+            } else {
+                // If already ready, play video and set volume
+                if (typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
+                if (typeof ytPlayer.setVolume === 'function') ytPlayer.setVolume(ytVolume);
             }
         }
         popupToggle.addEventListener('click', function() {
             setTimeout(ensureYTPlayer, 400);
         });
-        // Dihapus: pause video on close
-        // popupClose.addEventListener('click', function() {
-        //     // Optionally pause video on close
-        //     if (ytReady && ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
-        //         ytPlayer.pauseVideo();
-        //     }
-        // });
+
+        // Do NOT pause video on close (let it keep playing)
+        // Remove or comment out the pauseVideo on close
+        /*
+        popupClose.addEventListener('click', function() {
+            if (ytReady && ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+                ytPlayer.pauseVideo();
+            }
+        });
+        */
+
+        // AUTOPLAY music on first load, even if popup is closed
+        // Try to play as soon as ready
+        window._musicAutoplayTried = false;
+        function tryAutoplayMusic() {
+            if (ytReady && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+                ytPlayer.playVideo();
+                window._musicAutoplayTried = true;
+            }
+        }
+        // Try autoplay after player ready
+        function onPlayerReadyAutoplay(event) {
+            ytReady = true;
+            event.target.setVolume(ytVolume);
+            event.target.playVideo();
+            window._musicAutoplayTried = true;
+        }
+        // Patch createYTPlayer to use onPlayerReadyAutoplay
+        function createYTPlayerAutoplay() {
+            ytPlayerContainer.innerHTML = '<div id="music-iframe"></div>';
+            ytPlayer = new YT.Player('music-iframe', {
+                height: '150',
+                width: '100%',
+                videoId: ytVideoId,
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 1,
+                    'rel': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReadyAutoplay
+                }
+            });
+        }
+        // Overwrite createYTPlayer with the autoplay version
+        createYTPlayer = createYTPlayerAutoplay;
+        // If API already loaded, re-create player with autoplay
+        if (window.YT && window.YT.Player) {
+            createYTPlayer();
+        }
+        // If not, will be called by onYouTubeIframeAPIReady
+
+        // Also, try to play again after user interacts (for browsers that block autoplay)
+        document.body.addEventListener('click', function() {
+            if (!window._musicAutoplayTried) {
+                tryAutoplayMusic();
+            }
+        }, { once: true });
+
     });
 </script>
 </body>
