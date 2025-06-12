@@ -1,0 +1,799 @@
+<title>Portofolio Pribadi</title>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Montserrat', Arial, sans-serif;
+        background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+        min-height: 100vh;
+    }
+    header {
+        background: rgba(78,84,200,0.95);
+        color: #fff;
+        padding: 40px 0 30px 0;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(78,84,200,0.18);
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+        position: relative;
+    }
+    header img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #fff;
+        margin-bottom: 18px;
+        box-shadow: 0 4px 18px rgba(78,84,200,0.18);
+    }
+    header h1 {
+        font-size: 3rem;
+        margin: 0 0 10px 0;
+        letter-spacing: 2px;
+        font-weight: 700;
+    }
+    header p {
+        font-size: 1.3rem;
+        margin: 0;
+        font-weight: 400;
+        opacity: 0.85;
+    }
+    nav {
+        margin-top: 30px;
+        text-align: center;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        display: inline-flex;
+        background: rgba(255,255,255,0.15);
+        border-radius: 30px;
+        box-shadow: 0 8px 32px rgba(78,84,200,0.10);
+    }
+    li {
+        margin: 0 10px;
+    }
+    button {
+        background: linear-gradient(90deg, #4e54c8, #8f94fb);
+        color: white;
+        border: none;
+        padding: 14px 38px;
+        border-radius: 25px;
+        font-size: 18px;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 700;
+        margin: 8px 0;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(78,84,200,0.15);
+        transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        outline: none;
+        letter-spacing: 1px;
+    }
+    button.active, button:focus {
+        background: linear-gradient(90deg, #8f94fb, #4e54c8);
+        transform: scale(1.08) translateY(-2px);
+        box-shadow: 0 8px 24px rgba(78,84,200,0.22);
+    }
+    button:hover {
+        background: linear-gradient(90deg, #8f94fb, #4e54c8);
+        transform: scale(1.08) translateY(-2px);
+        box-shadow: 0 8px 24px rgba(78,84,200,0.22);
+    }
+    .main-content {
+        max-width: 900px;
+        margin: 60px auto 0 auto;
+        background: rgba(255,255,255,0.92);
+        border-radius: 30px;
+        box-shadow: 0 8px 32px rgba(78,84,200,0.10);
+        padding: 40px 40px 60px 40px;
+        text-align: center;
+        min-height: 400px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+    .main-content section {
+        width: 100%;
+    }
+    .main-content h2 {
+        font-size: 2.2rem;
+        color: #4e54c8;
+        margin-bottom: 18px;
+        font-weight: 700;
+    }
+    .main-content p {
+        font-size: 1.2rem;
+        color: #444;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 32px;
+        margin-top: 40px;
+    }
+    .card {
+        background: linear-gradient(135deg, #f8fafc 60%, #e0c3fc 100%);
+        border-radius: 22px;
+        box-shadow: 0 4px 18px rgba(78,84,200,0.10);
+        padding: 32px 28px;
+        width: 260px;
+        text-align: left;
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .card:hover {
+        transform: translateY(-8px) scale(1.04);
+        box-shadow: 0 12px 32px rgba(78,84,200,0.18);
+    }
+    .card h3 {
+        margin-top: 0;
+        color: #4e54c8;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+    .card p {
+        color: #555;
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+    .about-section, .services-section, .contact-section {
+        display: none;
+        animation: fadeIn 0.7s;
+    }
+    .active-section {
+        display: block !important;
+    }
+    .about-photo {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #4e54c8;
+        margin-bottom: 18px;
+        box-shadow: 0 4px 18px rgba(78,84,200,0.18);
+    }
+    .contact-info {
+        margin-top: 30px;
+        font-size: 1.1rem;
+        color: #444;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .contact-methods {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInContact 0.8s 0.2s forwards;
+    }
+    .contact-method {
+        background: linear-gradient(135deg, #e0c3fc 60%, #8ec5fc 100%);
+        border-radius: 18px;
+        box-shadow: 0 2px 10px rgba(78,84,200,0.10);
+        padding: 18px 24px;
+        min-width: 180px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1.1rem;
+        color: #4e54c8;
+        font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+        text-decoration: none;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInContact 0.7s forwards;
+    }
+    .contact-method:nth-child(1) { animation-delay: 0.3s; }
+    .contact-method:nth-child(2) { animation-delay: 0.45s; }
+    .contact-method:nth-child(3) { animation-delay: 0.6s; }
+    .contact-method:hover, .contact-method:focus {
+        transform: scale(1.06) translateY(-2px);
+        box-shadow: 0 6px 18px rgba(78,84,200,0.18);
+        background: linear-gradient(135deg, #8ec5fc 60%, #e0c3fc 100%);
+        color: #4e54c8;
+    }
+    .contact-method .icon {
+        font-size: 1.5rem;
+    }
+    .contact-btn {
+        display: inline-block;
+        margin-top: 32px;
+        background: linear-gradient(90deg, #4e54c8, #8f94fb);
+        color: #fff;
+        padding: 16px 44px;
+        border-radius: 25px;
+        font-size: 20px;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(78,84,200,0.15);
+        transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        letter-spacing: 1px;
+        text-decoration: none;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInContact 0.7s 0.8s forwards;
+    }
+    .contact-btn:hover, .contact-btn:focus {
+        background: linear-gradient(90deg, #8f94fb, #4e54c8);
+        transform: scale(1.08) translateY(-2px);
+        box-shadow: 0 8px 24px rgba(78,84,200,0.22);
+    }
+    @keyframes fadeInContact {
+        from { opacity: 0; transform: translateY(30px);}
+        to { opacity: 1; transform: translateY(0);}
+    }
+    /* Music Player Popup */
+    #music-popup-toggle {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 9999;
+        background: linear-gradient(135deg, #4e54c8 60%, #8ec5fc 100%);
+        color: #fff;
+        border-radius: 30px 0 0 30px;
+        box-shadow: 0 4px 18px rgba(78,84,200,0.18);
+        padding: 10px 16px 10px 12px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 700;
+        border: none;
+        outline: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: right 0.3s;
+        min-width: 0;
+    }
+    #music-popup-toggle .music-icon {
+        font-size: 1.3rem;
+        animation: musicPulse 1.5s infinite alternate;
+    }
+    @keyframes musicPulse {
+        from { transform: scale(1); }
+        to { transform: scale(1.15); }
+    }
+    #music-popup {
+        position: fixed;
+        top: 50%;
+        right: -340px;
+        transform: translateY(-50%);
+        width: 300px;
+        background: linear-gradient(135deg, #8ec5fc 60%, #e0c3fc 100%);
+        border-radius: 18px 0 0 18px;
+        box-shadow: 0 8px 32px rgba(78,84,200,0.18);
+        z-index: 10000;
+        padding: 18px 16px 16px 16px;
+        transition: right 0.5s cubic-bezier(.77,0,.18,1), opacity 0.5s cubic-bezier(.77,0,.18,1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        opacity: 0;
+        pointer-events: none;
+    }
+    #music-popup.open {
+        right: 0;
+        opacity: 1;
+        pointer-events: auto;
+        animation: popupOpenAnim 0.5s cubic-bezier(.77,0,.18,1);
+    }
+    #music-popup.closing {
+        opacity: 0;
+        right: -340px;
+        pointer-events: none;
+        animation: popupCloseAnim 0.5s cubic-bezier(.77,0,.18,1);
+    }
+    @keyframes popupOpenAnim {
+        from { opacity: 0; right: -340px;}
+        to { opacity: 1; right: 0;}
+    }
+    @keyframes popupCloseAnim {
+        from { opacity: 1; right: 0;}
+        to { opacity: 0; right: -340px;}
+    }
+    #music-popup .music-title {
+        font-size: 1.05rem;
+        color: #4e54c8;
+        font-weight: 700;
+        margin-bottom: 4px;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+    #music-popup .music-desc {
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 6px;
+        text-align: center;
+        font-style: italic;
+    }
+    #music-popup .music-yt {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+    #music-popup .music-yt iframe {
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(78,84,200,0.10);
+        margin-top: 6px;
+        width: 100%;
+        height: 150px;
+    }
+    #music-popup .music-yt .audio-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 6px;
+        width: 95%;
+        justify-content: center;
+    }
+    #music-popup .music-yt .audio-controls label {
+        font-size: 0.95rem;
+        color: #4e54c8;
+        font-weight: 600;
+    }
+    #music-popup .music-yt .audio-controls input[type="range"] {
+        width: 80px;
+        accent-color: #4e54c8;
+        margin: 0 2px;
+    }
+    #music-popup .music-yt .audio-controls span {
+        font-size: 0.95rem;
+        color: #4e54c8;
+        min-width: 22px;
+        text-align: right;
+    }
+    #music-popup .music-close {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: #4e54c8;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-weight: bold;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+        z-index: 2;
+    }
+    #music-popup .music-close:hover {
+        opacity: 1;
+    }
+    #music-popup .music-link {
+        margin-top: 6px;
+        display: inline-block;
+        background: linear-gradient(90deg, #4e54c8, #8f94fb);
+        color: #fff;
+        padding: 8px 18px;
+        border-radius: 16px;
+        font-size: 0.95rem;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 2px 10px rgba(78,84,200,0.10);
+        transition: background 0.3s, transform 0.2s;
+    }
+    #music-popup .music-link:hover, #music-popup .music-link:focus {
+        background: linear-gradient(90deg, #8f94fb, #4e54c8);
+        transform: scale(1.06);
+    }
+    #music-popup .music-yt .audio-controls input[type="range"]::-webkit-slider-thumb {
+        height: 16px;
+        width: 16px;
+    }
+    #music-popup .music-yt .audio-controls input[type="range"]::-moz-range-thumb {
+        height: 16px;
+        width: 16px;
+    }
+    #music-popup .music-yt .audio-controls input[type="range"]::-ms-thumb {
+        height: 16px;
+        width: 16px;
+    }
+    @media (max-width: 900px) {
+        .main-content {
+            padding: 30px 10px 40px 10px;
+        }
+        .cards {
+            flex-direction: column;
+            align-items: center;
+        }
+        #music-popup {
+            width: 95vw;
+            min-width: 0;
+            right: -100vw;
+            padding: 12px 4vw 12px 4vw;
+        }
+        #music-popup.open {
+            right: 0;
+        }
+    }
+    @media (max-width: 600px) {
+        header h1 {
+            font-size: 2rem;
+        }
+        .main-content h2 {
+            font-size: 1.4rem;
+        }
+        .card {
+            width: 90vw;
+            min-width: 0;
+            padding: 18px 10px;
+        }
+        #music-popup-toggle {
+            font-size: 0.95rem;
+            padding: 8px 8px 8px 8px;
+        }
+        #music-popup {
+            width: 98vw;
+            min-width: 0;
+            right: -100vw;
+            padding: 8px 2vw 8px 2vw;
+        }
+        #music-popup.open {
+            right: 0;
+        }
+        #music-popup .music-yt iframe {
+            height: 110px;
+        }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px);}
+        to { opacity: 1; transform: translateY(0);}
+    }
+    footer {
+        margin-top: 60px;
+        text-align: center;
+        color: #4e54c8;
+        font-size: 1rem;
+        opacity: 0.7;
+        padding-bottom: 24px;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
+</head>
+<body>
+<header>
+    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto Profil">
+    <h1>Halo, Saya Rahmadhani</h1>
+    <p>Selamat datang di portofolio pribadi saya. Temukan karya, layanan, dan cara menghubungi saya di sini.</p>
+    <nav>
+        <ul>
+            <li><button id="btn-beranda" class="active" data-scroll="#beranda-section">Beranda</button></li>
+            <li><button id="btn-tentang" data-scroll="#tentang-section">Tentang Saya</button></li>
+            <li><button id="btn-layanan" data-scroll="#layanan-section">Layanan</button></li>
+            <li><button id="btn-kontak" data-scroll="#kontak-section">Hubungi Kami</button></li>
+        </ul>
+    </nav>
+</header>
+<div class="main-content">
+    <section id="beranda-section" class="active-section">
+        <h2>Selamat Datang di Portofolio Saya</h2>
+        <p>Saya adalah seorang web developer & desainer kreatif yang berfokus pada pembuatan website modern, responsif, dan menarik. Temukan karya dan layanan saya di bawah ini!</p>
+        <div class="cards">
+            <div class="card">
+                <h3>Desain Kreatif</h3>
+                <p>Desain modern dan menarik yang disesuaikan dengan brand Anda, memastikan kehadiran digital yang berkesan.</p>
+            </div>
+            <div class="card">
+                <h3>Pengembangan Web</h3>
+                <p>Solusi web yang tangguh, responsif, dan skalabel menggunakan teknologi terbaru untuk pengalaman pengguna yang mulus.</p>
+            </div>
+            <div class="card">
+                <h3>Pemasaran Digital</h3>
+                <p>Kampanye strategis dan optimasi SEO untuk meningkatkan visibilitas online dan pertumbuhan bisnis Anda.</p>
+            </div>
+        </div>
+    </section>
+    <section id="tentang-section" class="about-section">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto Andi Pratama" class="about-photo">
+        <h2>Tentang Saya</h2>
+        <p>Nama Saya Rahmadhani, seorang pengembang web dan desainer UI/UX yang berdomisili di Jakarta. Saya memiliki pengalaman lebih dari 5 tahun dalam membangun website, aplikasi, dan solusi digital untuk berbagai klien. Saya sangat antusias dalam menciptakan karya yang inovatif dan berdampak positif.</p>
+        <div class="cards" style="margin-top:32px;">
+            <div class="card">
+                <h3>Keahlian</h3>
+                <p>HTML, CSS, JavaScript, React, UI/UX Design, SEO, WordPress</p>
+            </div>
+            <div class="card">
+                <h3>Pendidikan</h3>
+                <p>Sarjana Teknik Informatika<br>Universitas Indonesia</p>
+            </div>
+        </div>
+    </section>
+    <section id="layanan-section" class="services-section">
+        <h2>Layanan Saya</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>Pembuatan Website</h3>
+                <p>Membangun website profesional, portofolio, toko online, dan landing page sesuai kebutuhan Anda.</p>
+            </div>
+            <div class="card">
+                <h3>Desain UI/UX</h3>
+                <p>Mendesain tampilan aplikasi dan website yang user-friendly dan menarik secara visual.</p>
+            </div>
+            <div class="card">
+                <h3>Konsultasi Digital</h3>
+                <p>Membantu Anda merancang strategi digital untuk meningkatkan bisnis di era online.</p>
+            </div>
+        </div>
+    </section>
+    <section id="kontak-section" class="contact-section">
+        <h2>Hubungi Saya</h2>
+        <p style="opacity:0;animation:fadeInContact 0.7s 0.1s forwards;">Ingin bekerja sama atau punya pertanyaan? Silakan hubungi saya melalui salah satu metode di bawah ini:</p>
+        <div class="contact-methods">
+            <a href="mailto:rahmadhani.web@gmail.com?subject=Halo%20Rahmadhani" class="contact-method" target="_blank" rel="noopener">
+                <span class="icon">&#9993;</span>
+                <span>Email</span>
+            </a>
+            <a href="https://wa.me/6281234567890?text=Halo%20Rahmadhani%2C%20saya%20ingin%20berkonsultasi%20atau%20bekerja%20sama." class="contact-method" target="_blank" rel="noopener">
+                <span class="icon">&#128222;</span>
+                <span>WhatsApp</span>
+            </a>
+            <a href="https://goo.gl/maps/3nQw9Qw9Qw9Qw9Qw7" class="contact-method" target="_blank" rel="noopener">
+                <span class="icon">&#127968;</span>
+                <span>Jakarta, Indonesia</span>
+            </a>
+        </div>
+        <a href="mailto:rahmadhani.web@gmail.com?subject=Halo%20Rahmadhani" class="contact-btn" id="btn-email">Kirim Email Langsung</a>
+    </section>
+</div>
+<footer>
+    &copy; 2024 Kudanii. Dibuat dengan cinta dan kreativitas.
+</footer>
+
+<!-- Music Player Popup Toggle Button -->
+<button id="music-popup-toggle" aria-label="Buka Pemutar Musik">
+    <span class="music-icon">&#127925;</span>
+    <span id="music-popup-toggle-title">Putar Musik</span>
+</button>
+<!-- Music Player Popup -->
+<div id="music-popup" aria-modal="true" role="dialog">
+    <button class="music-close" id="music-popup-close" aria-label="Tutup Pemutar Musik">&times;</button>
+    <div class="music-title" id="music-title">Janji -  Heroes Tonight</div>
+    <div class="music-desc">Nikmati lagu <b>Janji</b> oleh <a href="https://www.youtube.com/channel/UCJrOtniJ0-NWz37R30urifQ" target="_blank" rel="noopener" style="color:#4e54c8;text-decoration:underline;">Heroes Tonigh</a> untuk menemani aktivitasmu!</div>
+    <div class="music-yt" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div id="yt-player-container" style="width:100%;">
+            <!-- YouTube iframe will be injected here -->
+        </div>
+        <div class="audio-controls" style="width:95%;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;">
+            <label for="music-volume" style="font-size:0.95rem;color:#4e54c8;font-weight:600;">Volume</label>
+            <input type="range" id="music-volume" min="0" max="100" value="40" style="accent-color:#4e54c8;">
+            <span id="music-volume-value" style="font-size:0.95rem;color:#4e54c8;">40</span>
+        </div>
+        <div style="font-size:0.9rem;color:#888;text-align:center;">* Atur volume video YouTube dengan slider di atas agar tidak terlalu keras.</div>
+    </div>
+    <a class="music-link" href="https://www.youtube.com/watch?v=3nQNiWdeH2Q" target="_blank" rel="noopener">&#127911; Dengarkan di YouTube</a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const buttons = [
+            document.getElementById('btn-beranda'),
+            document.getElementById('btn-tentang'),
+            document.getElementById('btn-layanan'),
+            document.getElementById('btn-kontak')
+        ];
+        const sections = [
+            document.getElementById('beranda-section'),
+            document.getElementById('tentang-section'),
+            document.getElementById('layanan-section'),
+            document.getElementById('kontak-section')
+        ];
+
+        function showSection(idx) {
+            sections.forEach((sec, i) => sec.classList.toggle('active-section', i === idx));
+            buttons.forEach((btn, i) => btn.classList.toggle('active', i === idx));
+        }
+
+        function smoothScrollTo(targetY, duration = 700) {
+            const startY = window.scrollY;
+            const diff = targetY - startY;
+            let startTime = null;
+
+            function easeInOutQuad(t) {
+                return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            }
+
+            function animateScroll(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const time = Math.min(1, (currentTime - startTime) / duration);
+                const eased = easeInOutQuad(time);
+                window.scrollTo(0, startY + diff * eased);
+                if (time < 1) {
+                    requestAnimationFrame(animateScroll);
+                }
+            }
+            requestAnimationFrame(animateScroll);
+        }
+
+        buttons.forEach((btn, idx) => {
+            btn.addEventListener('click', (e) => {
+                showSection(idx);
+                // Scroll to section title if data-scroll exists
+                const scrollTarget = btn.getAttribute('data-scroll');
+                if (scrollTarget) {
+                    setTimeout(() => {
+                        const el = document.querySelector(scrollTarget);
+                        if (el) {
+                            const y = el.getBoundingClientRect().top + window.scrollY - 40;
+                            smoothScrollTo(y, 700);
+                        }
+                    }, 100);
+                }
+            });
+        });
+
+        // Music Player Popup Logic
+        const popupToggle = document.getElementById('music-popup-toggle');
+        const popup = document.getElementById('music-popup');
+        const popupClose = document.getElementById('music-popup-close');
+        let popupOpen = false;
+        let popupAnimating = false;
+
+        function openPopup() {
+            if (popupAnimating) return;
+            popupAnimating = true;
+            popup.classList.remove('closing');
+            popup.classList.add('open');
+            popupOpen = true;
+            setTimeout(() => { popupAnimating = false; }, 500);
+        }
+        function closePopup() {
+            if (popupAnimating) return;
+            popupAnimating = true;
+            popup.classList.remove('open');
+            popup.classList.add('closing');
+            popupOpen = false;
+            setTimeout(() => {
+                popup.classList.remove('closing');
+                popupAnimating = false;
+            }, 500);
+        }
+        // Initially hide popup
+        popup.classList.remove('open', 'closing');
+        popupOpen = false;
+
+        popupToggle.addEventListener('click', function() {
+            if (popupOpen) {
+                closePopup();
+            } else {
+                openPopup();
+            }
+        });
+        popupClose.addEventListener('click', closePopup);
+
+        // Keyboard accessibility for popup
+        document.addEventListener('keydown', function(e) {
+            if (popupOpen && (e.key === 'Escape' || e.key === 'Esc')) {
+                closePopup();
+            }
+        });
+
+        // Responsive: close popup if window resized too small
+        window.addEventListener('resize', function() {
+            if (window.innerWidth < 400 && popupOpen) {
+                closePopup();
+            }
+        });
+
+        // Animate contact section on show
+        const contactSection = document.getElementById('kontak-section');
+        const contactMethods = contactSection.querySelector('.contact-methods');
+        const contactBtn = contactSection.querySelector('.contact-btn');
+        const contactP = contactSection.querySelector('p');
+        function animateContactSection() {
+            contactMethods.style.opacity = '0';
+            contactMethods.style.transform = 'translateY(30px)';
+            contactBtn.style.opacity = '0';
+            contactBtn.style.transform = 'translateY(30px)';
+            contactP.style.opacity = '0';
+            contactP.style.transform = 'translateY(30px)';
+            setTimeout(() => {
+                contactMethods.style.opacity = '';
+                contactMethods.style.transform = '';
+                contactBtn.style.opacity = '';
+                contactBtn.style.transform = '';
+                contactP.style.opacity = '';
+                contactP.style.transform = '';
+            }, 100);
+        }
+        buttons[3].addEventListener('click', animateContactSection);
+
+        // YouTube Iframe API & Volume Control
+        let ytPlayer;
+        let ytReady = false;
+        let ytVolume = 40;
+        const ytPlayerContainer = document.getElementById('yt-player-container');
+        const ytVideoId = "3nQNiWdeH2Q";
+        function createYTPlayer() {
+            ytPlayerContainer.innerHTML = '<div id="music-iframe"></div>';
+            ytPlayer = new YT.Player('music-iframe', {
+                height: '150',
+                width: '100%',
+                videoId: ytVideoId,
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 1,
+                    'rel': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': function(event) {
+                        ytReady = true;
+                        event.target.setVolume(ytVolume);
+                    }
+                }
+            });
+        }
+        // Load YouTube Iframe API
+        if (!window.YT) {
+            let tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            let firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+        window.onYouTubeIframeAPIReady = function() {
+            createYTPlayer();
+        };
+        // If API already loaded
+        if (window.YT && window.YT.Player) {
+            createYTPlayer();
+        }
+
+        // Volume slider logic
+        const volumeSlider = document.getElementById('music-volume');
+        const volumeValue = document.getElementById('music-volume-value');
+        volumeSlider.addEventListener('input', function() {
+            ytVolume = parseInt(this.value, 10);
+            volumeValue.textContent = ytVolume;
+            if (ytReady && ytPlayer && typeof ytPlayer.setVolume === 'function') {
+                ytPlayer.setVolume(ytVolume);
+            }
+        });
+
+        // Recreate player on popup open (to ensure volume works after close/open)
+        function ensureYTPlayer() {
+            if (!ytPlayer || !ytReady) {
+                if (window.YT && window.YT.Player) {
+                    createYTPlayer();
+                }
+            }
+        }
+        popupToggle.addEventListener('click', function() {
+            setTimeout(ensureYTPlayer, 400);
+        });
+        // Dihapus: pause video on close
+        // popupClose.addEventListener('click', function() {
+        //     // Optionally pause video on close
+        //     if (ytReady && ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+        //         ytPlayer.pauseVideo();
+        //     }
+        // });
+    });
+</script>
+</body>
+</html>
